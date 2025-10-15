@@ -1,0 +1,322 @@
+/* ===== RESET & BASE STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #2c3e50;
+    background: white;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container-full {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+    background: white;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 0;
+    box-shadow: none;
+    border-top: none;
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #3498db;
+}
+
+/* ===== INTRO TEXT ===== */
+.intro {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #34495e;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ===== HERO SECTION (INTRO + MAP) ===== */
+.hero-section {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    align-items: center;
+    background: white;
+    padding: 50px;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+}
+
+.hero-text {
+    padding-right: 20px;
+}
+
+.hero-text h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    line-height: 1.3;
+}
+
+.hero-text p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #34495e;
+    margin-bottom: 15px;
+}
+
+.hero-map {
+    width: 100%;
+    min-height: 600px;
+}
+
+.hero-map #map {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    border: 2px solid #ecf0f1;
+    border-radius: 8px;
+    background: #fafafa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== INSIGHT BOXES ===== */
+.insight {
+    background: #fffbea;
+    border-left: 5px solid #f39c12;
+    padding: 20px 25px;
+    margin: 0;
+    border-radius: 5px;
+  
+}
+
+.insight-icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.insight strong {
+    color: #e67e22;
+    font-size: 19px;
+}
+
+/* ===== VISUALIZATION CONTAINERS ===== */
+.viz-container {
+    width: 100%;
+    margin: 0;
+}
+
+#map {
+    width: 100%;
+    min-height: 600px;
+    border: 2px solid #ecf0f1;
+    border-radius: 8px;
+    background: #fafafa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== TWO COLUMN LAYOUT ===== */
+.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin: 0;
+}
+
+.chart-box {
+    background: #fafafa;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #e1e8ed;
+    overflow: hidden;
+}
+
+.chart-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.chart {
+    width: 100%;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* ===== VEGA-LITE EMBED STYLING ===== */
+.vega-embed {
+    width: 100% !important;
+}
+
+.vega-embed .vega-actions {
+    right: 10px !important;
+    top: 10px !important;
+}
+
+.vega-embed svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Make Vega visualizations responsive */
+#map .vega-embed,
+#bar-chart .vega-embed,
+#line-chart .vega-embed,
+#routes-chart .vega-embed,
+#altitude-chart .vega-embed {
+    width: 100% !important;
+}
+
+/* Specific sizing for two-column charts */
+.chart-box .vega-embed svg {
+    max-width: 100%;
+}
+
+.chart-box .vega-embed .vega-view {
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background: #2c3e50;
+    color: white;
+    padding: 40px 20px;
+    margin-top: 0;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.footer-links {
+    margin: 20px 0;
+    font-size: 14px;
+    line-height: 2;
+}
+
+.footer-links a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .hero-section {
+        grid-template-columns: 1fr;
+        padding: 30px;
+    }
+
+    .hero-text {
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .hero-map {
+        min-height: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 32px;
+    }
+
+    .header p {
+        font-size: 16px;
+    }
+
+    .two-col {
+        grid-template-columns: 1fr;
+    }
+
+    .section {
+        padding: 25px;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .chart-box {
+        padding: 15px;
+    }
+
+    .chart-title {
+        font-size: 18px;
+    }
+
+    #map {
+        min-height: 400px;
+    }
+
+    .hero-section {
+        padding: 20px;
+    }
+
+    .hero-text h2 {
+        font-size: 24px;
+    }
+
+    .hero-text p {
+        font-size: 16px;
+    }
+
+    .hero-map {
+        min-height: 400px;
+    }
+}
+
+/* ===== LOADING STATE ===== */
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #7f8c8d;
+    font-style: italic;
+}
+

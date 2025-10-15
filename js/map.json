@@ -1,0 +1,134 @@
+
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Australian Domestic Airport Network",
+    "fontSize": 20,
+    "font": "Roboto, sans-serif",
+    "fontWeight": 400,
+    "anchor": "start",
+    "color": "#2c3e50"
+  },
+  "width": "container",
+  "height": 550,
+  "projection": {
+    "type": "mercator",
+    "center": [133, -28],
+    "scale": 800
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "transform": [
+        {"filter": "datum.properties.name == 'Australia'"}
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e8f4f8",
+        "stroke": "#34495e",
+        "strokeWidth": 1.5
+      }
+    },
+    {
+      "data": {
+        "url": "data/airports_merged.csv"
+      },
+      "transform": [
+        {"filter": "datum.latitude != null && datum.longitude != null"},
+        {"filter": "datum.passengers_2024 != null"},
+        {"filter": "datum.iata != null && datum.iata != ''"},
+        {
+          "filter": {
+            "not": {
+              "field": "iata",
+              "oneOf": ["ACF", "MEB", "MBW", "BWU", "JAD", "PEA"]
+            }
+          }
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "opacity": 0.7,
+        "stroke": "black",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "size": {
+          "field": "passengers_2024",
+          "type": "quantitative",
+          "title": "Passengers (2024)",
+          "scale": {
+            "type": "sqrt",
+            "range": [50, 2000]
+          },
+          "legend": {
+            "format": ".2s",
+            "title": "Annual Passengers"
+          }
+        },
+        "color": {
+          "field": "state",
+          "type": "nominal",
+          "title": "State/Territory",
+          "scale": {
+            "domain": ["NSW", "VIC", "QLD", "SA", "WA", "TAS", "NT", "ACT"],
+            "range": ["#e74c3c", "#3498db", "#f39c12", "#9b59b6", "#1abc9c", "#34495e", "#e67e22", "#95a5a6"]
+          }
+        },
+        "tooltip": [
+          {"field": "name", "type": "nominal", "title": "Airport"},
+          {"field": "city", "type": "nominal", "title": "City"},
+          {"field": "iata", "type": "nominal", "title": "IATA Code"},
+          {"field": "state", "type": "nominal", "title": "State"},
+          {"field": "passengers_2024", "type": "quantitative", "title": "Passengers (2024)", "format": ","},
+          {"field": "altitude_m", "type": "quantitative", "title": "Elevation (m)", "format": ","}
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/airports_merged.csv"
+      },
+      "transform": [
+        {
+          "filter": {
+            "field": "city",
+            "oneOf": ["Sydney", "Melbourne", "Brisbane"]
+          }
+        },
+        {"filter": "datum.iata != null && datum.iata != ''"},
+        {"filter": "datum.passengers_2024 != null"},
+        {
+          "filter": {
+            "field": "iata",
+            "oneOf": ["SYD", "MEL", "BNE"]
+          }
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": -20,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#2c3e50"
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "city", "type": "nominal"}
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "background": "#f8f9fa"
+  }
+}

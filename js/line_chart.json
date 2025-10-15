@@ -1,0 +1,110 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {},
+    "width": "container",
+    "height": 450,
+    "data": {
+      "url": "data/airport_trends.csv"
+    },
+    "transform": [
+      {
+        "calculate": "datum.passengers / 1000000",
+        "as": "passengers_millions"
+      },
+      {
+        "calculate": "parseInt(substring(datum.year, 0, 4))",
+        "as": "year_num"
+      }
+    ],
+    "layer": [
+      {
+        "mark": {
+          "type": "line",
+          "point": false,
+          "strokeWidth": 2.5
+        },
+        "encoding": {
+          "x": {
+            "field": "year_num",
+            "type": "quantitative",
+            "title": "Year",
+            "axis": {
+              "format": "d",
+              "tickCount": 10,
+              "grid": true,
+              "gridOpacity": 0.3
+            }
+          },
+          "y": {
+            "field": "passengers_millions",
+            "type": "quantitative",
+            "title": "Passengers (millions)",
+            "scale": {"zero": false},
+            "axis": {
+              "grid": true,
+              "gridOpacity": 0.3
+            }
+          },
+          "color": {
+            "field": "airport",
+            "type": "nominal",
+            "title": "Airport",
+            "scale": {
+              "scheme": "category10"
+            }
+          },
+          "tooltip": [
+            {"field": "airport", "type": "nominal", "title": "Airport"},
+            {"field": "year", "type": "nominal", "title": "Year"},
+            {
+              "field": "passengers_millions",
+              "type": "quantitative",
+              "title": "Passengers (M)",
+              "format": ".2f"
+            }
+          ]
+        }
+      },
+      {
+        "data": {
+          "values": [{"year": 2020, "label": "COVID-19"}]
+        },
+        "layer": [
+          {
+            "mark": {
+              "type": "rule",
+              "strokeDash": [4, 4],
+              "stroke": "#e74c3c",
+              "strokeWidth": 2
+            },
+            "encoding": {
+              "x": {"field": "year", "type": "quantitative"}
+            }
+          },
+          {
+            "mark": {
+              "type": "text",
+              "align": "center",
+              "dy": -10,
+              "fontSize": 11,
+              "fontWeight": "bold",
+              "color": "#e74c3c"
+            },
+            "encoding": {
+              "x": {"field": "year", "type": "quantitative"},
+              "y": {"value": 0},
+              "text": {"field": "label"}
+            }
+          }
+        ]
+      }
+    ],
+    "config": {
+      "view": {"stroke": null},
+      "legend": {
+        "orient": "bottom",
+        "columns": 5,
+        "labelLimit": 100
+      }
+    }
+  }
