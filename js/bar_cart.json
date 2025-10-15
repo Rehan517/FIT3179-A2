@@ -4,16 +4,26 @@
     "width": "container",
     "height": 450,
     "data": {
-      "url": "data/airport_passengers_2024.csv"
+      "url": "data/airport_passengers_2024.csv",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "passengers_2024": "number"
+        }
+      }
     },
     "transform": [
       {
+        "calculate": "toNumber(datum.passengers_2024)",
+        "as": "passengers_num"
+      },
+      {
         "window": [{"op": "rank", "as": "rank"}],
-        "sort": [{"field": "passengers_2024", "order": "descending"}]
+        "sort": [{"field": "passengers_num", "order": "descending"}]
       },
       {"filter": "datum.rank <= 20"},
       {
-        "calculate": "datum.passengers_2024 / 1000000",
+        "calculate": "datum.passengers_num / 1000000",
         "as": "passengers_millions"
       }
     ],
@@ -54,7 +64,7 @@
       "tooltip": [
         {"field": "airport", "type": "nominal", "title": "Airport"},
         {
-          "field": "passengers_2024",
+          "field": "passengers_num",
           "type": "quantitative",
           "title": "Total Passengers",
           "format": ","

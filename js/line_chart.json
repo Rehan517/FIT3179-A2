@@ -8,6 +8,9 @@
     },
     "transform": [
       {
+        "filter": "datum.airport != 'TOTAL AUSTRALIA'"
+      },
+      {
         "calculate": "datum.passengers / 1000000",
         "as": "passengers_millions"
       },
