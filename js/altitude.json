@@ -1,0 +1,87 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {},
+    "width": "container",
+    "height": 450,
+    "data": {
+      "url": "data/airports_merged.csv",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "altitude_m": "number"
+        }
+      }
+    },
+    "transform": [
+      {"filter": "datum.altitude_m != null"},
+      {"filter": "datum.altitude_m >= 0"}
+    ],
+    "mark": {
+      "type": "bar",
+      "cornerRadiusTopLeft": 4,
+      "cornerRadiusTopRight": 4,
+      "cursor": "pointer",
+      "tooltip": true
+    },
+    "encoding": {
+      "x": {
+        "field": "altitude_m",
+        "type": "quantitative",
+        "bin": {
+          "maxbins": 20,
+          "nice": true
+        },
+        "title": "Elevation (meters)",
+        "axis": {
+          "labelAngle": 0,
+          "grid": false
+        }
+      },
+      "y": {
+        "aggregate": "count",
+        "type": "quantitative",
+        "title": "Number of Airports",
+        "axis": {
+          "tickCount": 8,
+          "grid": true,
+          "gridOpacity": 0.3
+        }
+      },
+      "color": {
+        "field": "altitude_m",
+        "type": "quantitative",
+        "bin": {
+          "maxbins": 20,
+          "nice": true
+        },
+        "scale": {
+          "scheme": "teals"
+        },
+        "legend": null
+      },
+      "tooltip": [
+        {
+          "field": "altitude_m",
+          "type": "quantitative",
+          "bin": {
+            "maxbins": 20,
+            "nice": true
+          },
+          "title": "Elevation Range (m)"
+        },
+        {
+          "aggregate": "count",
+          "type": "quantitative",
+          "title": "Number of Airports"
+        }
+      ]
+    },
+    "config": {
+      "view": {"stroke": null},
+      "axis": {
+        "labelFont": "Arial, sans-serif",
+        "titleFont": "Arial, sans-serif"
+      }
+    }
+  }
+

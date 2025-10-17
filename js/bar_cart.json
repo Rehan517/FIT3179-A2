@@ -4,15 +4,20 @@
     "width": "container",
     "height": 450,
     "data": {
-      "url": "data/airport_passengers_2024.csv",
-      "format": {
-        "type": "csv",
-        "parse": {
-          "passengers_2024": "number"
-        }
-      }
+      "url": "data/airports_merged.csv"
     },
     "transform": [
+      {"filter": "datum.passengers_2024 != null"},
+      {"filter": "datum.passengers_2024 > 0"},
+      {"filter": "datum.iata != null && datum.iata != ''"},
+      {
+        "filter": {
+          "not": {
+            "field": "iata",
+            "oneOf": ["ACF", "MEB", "MBW", "BWU", "JAD", "PEA"]
+          }
+        }
+      },
       {
         "calculate": "toNumber(datum.passengers_2024)",
         "as": "passengers_num"
@@ -21,10 +26,14 @@
         "window": [{"op": "rank", "as": "rank"}],
         "sort": [{"field": "passengers_num", "order": "descending"}]
       },
-      {"filter": "datum.rank <= 20"},
+      {"filter": "datum.rank <= 16"},
       {
         "calculate": "datum.passengers_num / 1000000",
         "as": "passengers_millions"
+      },
+      {
+        "calculate": "upper(datum.city)",
+        "as": "city_upper"
       }
     ],
     "mark": {
@@ -34,7 +43,7 @@
     },
     "encoding": {
       "y": {
-        "field": "airport",
+        "field": "city_upper",
         "type": "nominal",
         "title": null,
         "sort": "-x",
@@ -54,15 +63,19 @@
         }
       },
       "color": {
-        "field": "passengers_millions",
-        "type": "quantitative",
+        "field": "state",
+        "type": "nominal",
+        "title": "State/Territory",
         "scale": {
-          "scheme": "blues"
+          "domain": ["NSW", "VIC", "QLD", "SA", "WA", "TAS", "NT", "ACT"],
+          "range": ["#e74c3c", "#3498db", "#f39c12", "#9b59b6", "#1abc9c", "#34495e", "#e67e22", "#95a5a6"]
         },
         "legend": null
       },
       "tooltip": [
-        {"field": "airport", "type": "nominal", "title": "Airport"},
+        {"field": "name", "type": "nominal", "title": "Airport"},
+        {"field": "city", "type": "nominal", "title": "City"},
+        {"field": "state", "type": "nominal", "title": "State"},
         {
           "field": "passengers_num",
           "type": "quantitative",

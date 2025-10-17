@@ -43,18 +43,18 @@
 
         <!-- TWO COLUMN CHARTS -->
         <section class="section">
-            <h2 class="section-title">Scale and Growth</h2>
+            <h2 class="section-title">Geographic Distribution</h2>
             <div class="two-col">
                 <!-- TOP AIRPORTS BAR CHART -->
                 <div class="chart-box">
-                    <h3 class="chart-title">Top 20 Busiest Airports (2024)</h3>
+                    <h3 class="chart-title">Busiest Airports (2024)</h3>
                     <div id="bar-chart" class="chart loading">Loading chart...</div>
                 </div>
 
-                <!-- HISTORICAL TRENDS LINE CHART -->
+                <!-- ELEVATION DISTRIBUTION -->
                 <div class="chart-box">
-                    <h3 class="chart-title">24 Years of Growth (2000-2024)</h3>
-                    <div id="line-chart" class="chart loading">Loading chart...</div>
+                    <h3 class="chart-title">Elevation Distribution</h3>
+                    <div id="altitude-chart" class="chart loading">Loading chart...</div>
                 </div>
             </div>
         </section>
@@ -63,37 +63,50 @@
         <section class="section">
             <div class="insight">
                 
-                <strong>Key Insight:</strong> 
-                Australian aviation has grown steadily since deregulation in 1990, with the Gold Coast 
-                emerging as a major hub. The 2020 COVID-19 pandemic caused a sharp 70% decline in 
-                passenger numbers, but traffic recovered to near pre-pandemic levels by 2024, demonstrating 
-                the sector's resilience.
+                <strong>Insight:</strong> 
+                Australia's busiest airports are predominantly located in coastal capital cities at low elevations, 
+                with Sydney, Melbourne, and Brisbane leading passenger traffic. The elevation distribution reveals 
+                that over 200 airports operate below 100 meters, reflecting the nation's coastal population 
+                concentration. Inland airports serving regional and mining communities operate at higher elevations, 
+                with some exceeding 500 meters, requiring specialized operational considerations.
             </div>
         </section>
 
         <!-- BOTTOM ROW -->
         <section class="section">
-            <h2 class="section-title">Connections and Geography</h2>
-            <div class="two-col">
-                <!-- ROUTES -->
+            <h2 class="section-title">Aviation Growth Trends</h2>
+            <div class="two-col hero-style-reverse">
+                <!-- HISTORICAL TRENDS LINE CHART (LEFT - 2/3) -->
                 <div class="chart-box">
-                    <h3 class="chart-title">Top 20 Domestic Routes</h3>
-            
+                    <h3 class="chart-title">24 Years of Growth (2000-2024)</h3>
+                    <div id="line-chart" class="chart loading">Loading chart...</div>
                 </div>
 
-                <!-- ALTITUDE -->
-                <div class="chart-box">
-                    <h3 class="chart-title">Elevation Distribution</h3>
-                    
+                <!-- TEXT BOX (RIGHT - 1/3) -->
+                <div class="chart-box text-only">
+                    <h3 class="chart-title">Aviation Growth Trends</h3>
+                    <p>
+                        <strong>Steady Growth Era (2000-2019):</strong> Australian domestic aviation experienced 
+                        consistent growth over two decades, with Sydney and Melbourne maintaining their positions 
+                        as the nation's busiest airports. Brisbane and the Gold Coast emerged as major Queensland 
+                        hubs, while Perth served as the primary gateway to Western Australia.
+                    </p>
+                    <p>
+                        <strong>COVID-19 Impact (2020):</strong> The pandemic caused an unprecedented 70% decline 
+                        in passenger traffic across all major airports in 2020, bringing the industry to near standstill. 
+                        This dramatic drop affected every capital city and regional center uniformly.
+                    </p>
+                    <p>
+                        <strong>Recovery and Resilience (2021-2024):</strong> The sector demonstrated remarkable 
+                        recovery, with passenger numbers rebounding to near pre-pandemic levels by 2024. Sydney and 
+                        Melbourne regained their 24-25 million annual passenger volumes, showcasing the essential 
+                        role of air travel in Australian life.
+                    </p>
+                    <p style="margin-top: 20px; color: #7f8c8d; font-size: 16px;">
+                        The parallel growth patterns across major cities highlight Australia's interconnected domestic 
+                        aviation network and shared economic trends.
+                    </p>
                 </div>
-            </div>
-        </section>
-
-        <!-- FINAL INSIGHT -->
-        <section class="section">
-            <div class="insight">
-                <strong>Key Insight:</strong> 
-                Loren Ipsom
             </div>
         </section>
     </div>
@@ -173,15 +186,10 @@
                 .then(result => console.log('Line chart loaded successfully'))
                 .catch(error => console.error('Error loading line chart:', error));
             
-            // 4. Embed Routes Chart (TODO: create routes.json)
-            vegaEmbed('#routes-chart', 'js/routes.json', embedOptions)
-                .then(result => console.log('Routes chart loaded successfully'))
-                .catch(error => console.error('Routes chart not ready:', error.message));
-            
-            // 5. Embed Altitude Chart (TODO: create altitude.json)
+            // 4. Embed Altitude Chart
             vegaEmbed('#altitude-chart', 'js/altitude.json', embedOptions)
                 .then(result => console.log('Altitude chart loaded successfully'))
-                .catch(error => console.error('Altitude chart not ready:', error.message));
+                .catch(error => console.error('Error loading altitude chart:', error));
         });
     </script>
 </body>

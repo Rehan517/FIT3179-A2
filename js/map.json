@@ -42,6 +42,7 @@
       "transform": [
         {"filter": "datum.latitude != null && datum.longitude != null"},
         {"filter": "datum.passengers_2024 != null"},
+        {"filter": "datum.passengers_2024 > 0"},
         {"filter": "datum.iata != null && datum.iata != ''"},
         {
           "filter": {
@@ -71,7 +72,8 @@
           },
           "legend": {
             "format": ".2s",
-            "title": "Annual Passengers"
+            "title": "Annual Passengers",
+            "values": [500000, 1000000, 5000000, 10000000, 20000000]
           }
         },
         "color": {
