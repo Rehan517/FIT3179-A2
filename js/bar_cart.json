@@ -6,6 +6,16 @@
     "data": {
       "url": "data/airports_merged.csv"
     },
+    "params": [
+      {
+        "name": "hover",
+        "select": {
+          "type": "point",
+          "on": "mouseover",
+          "clear": "mouseout"
+        }
+      }
+    ],
     "transform": [
       {"filter": "datum.passengers_2024 != null"},
       {"filter": "datum.passengers_2024 > 0"},
@@ -71,6 +81,10 @@
           "range": ["#e74c3c", "#3498db", "#f39c12", "#9b59b6", "#1abc9c", "#34495e", "#e67e22", "#95a5a6"]
         },
         "legend": null
+      },
+      "opacity": {
+        "condition": {"param": "hover", "value": 1},
+        "value": 0.5
       },
       "tooltip": [
         {"field": "name", "type": "nominal", "title": "Airport"},

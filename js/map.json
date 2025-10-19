@@ -11,6 +11,18 @@
   },
   "width": "container",
   "height": 550,
+  "params": [
+    {
+      "name": "state_selection",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "options": ["All", "NSW", "VIC", "QLD", "SA", "WA", "TAS", "NT", "ACT"],
+        "labels": ["All States", "New South Wales", "Victoria", "Queensland", "South Australia", "Western Australia", "Tasmania", "Northern Territory", "Australian Capital Territory"],
+        "name": "Filter largest airports by State: "
+      }
+    }
+  ],
   "projection": {
     "type": "mercator",
     "center": [133, -28],
@@ -51,13 +63,15 @@
               "oneOf": ["ACF", "MEB", "MBW", "BWU", "JAD", "PEA"]
             }
           }
-        }
+        },
+        {"filter": "state_selection == 'All' || datum.state == state_selection"}
       ],
       "mark": {
         "type": "circle",
         "opacity": 0.7,
         "stroke": "black",
-        "strokeWidth": 1
+        "strokeWidth": 1,
+        "cursor": "pointer"
       },
       "encoding": {
         "longitude": {"field": "longitude", "type": "quantitative"},
@@ -68,6 +82,7 @@
           "title": "Passengers (2024)",
           "scale": {
             "type": "sqrt",
+            "domain": [0, 25000000],
             "range": [50, 2000]
           },
           "legend": {
@@ -113,7 +128,8 @@
             "field": "iata",
             "oneOf": ["SYD", "MEL", "BNE"]
           }
-        }
+        },
+        {"filter": "state_selection == 'All' || datum.state == state_selection"}
       ],
       "mark": {
         "type": "text",
